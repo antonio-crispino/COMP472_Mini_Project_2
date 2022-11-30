@@ -4,4 +4,4 @@ initial_gamestate = GameState.generate_initial_gamestate("RRB...C.B...C.AA......
 successor_gamestates = initial_gamestate.generate_successor_gamestates()
 
 print(initial_gamestate.get_data_string(), "\tis_solution_state:", initial_gamestate.get_change()["is_solution_state"])
-[print(succssor.get_data_string(), "\tis_solution_state:", succssor.get_change()["is_solution_state"]) for succssor in successor_gamestates]
+[print(successor.get_data_string(), "\tis_solution_state:", successor.get_change()["is_solution_state"]) for successor in successor_gamestates]
