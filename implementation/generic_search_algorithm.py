@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from game import GameState
+from game_state import GameState
 from node import Node
 
 class GenericSearchAlgorithm(ABC):

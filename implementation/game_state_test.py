@@ -1,4 +1,4 @@
-from game import GameState
+from game_state import GameState
 
 initial_gamestate = GameState.generate_initial_gamestate("RRB...C.B...C.AA........EEGGG....... C3 B4 H1 F2")
 successor_gamestates = initial_gamestate.generate_successor_gamestates()

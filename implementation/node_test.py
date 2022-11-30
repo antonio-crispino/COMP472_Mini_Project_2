@@ -1,4 +1,4 @@
-from game import GameState
+from game_state import GameState
 from node import Node
 
 initial_gamestate = GameState.generate_initial_gamestate("RRB...C.B...C.AA........EEGGG....... C3 B4 H1 F2")
