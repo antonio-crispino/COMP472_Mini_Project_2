@@ -108,7 +108,7 @@ class GameState:
       "direction_moved": None,
       "distance_moved": None,
       "fuel_remaining": None,
-      "is_solution_state": False}
+      "is_solution_state": grid_array_2d[2, 5] == GameState.ambulance}
 
     ### Initialize the vehicle data
     for vehicle_name, vehicle_data in vehicles_data.items():
@@ -177,6 +177,8 @@ class GameState:
             # Modify the vehicle positions to reflect the vehicle movement
             vehicles_new[vehicle_name]["positions"].pop(-1)
             vehicles_new[vehicle_name]["positions"].insert(0, (copy(y_position), copy(x_position_new)))
+            # Set the change data (is solution state)
+            change_new["is_solution_state"] = grid_new[2, 5] == GameState.ambulance
             # Change the new position for the next round
             x_position_new -= 1
             # Create a GameState object and append it to the container that holds successor states
@@ -209,10 +211,9 @@ class GameState:
               # Modify the vehicle positions to reflect the vehicle movement
               vehicles_new[vehicle_name]["positions"].pop(0)
               vehicles_new[vehicle_name]["positions"].append((copy(y_position), copy(x_position_new)))
-              # If the vehicle reaches the exit door and is an ambulance "A"
-              if (y_position == 2 and x_position_new == 5 and vehicle_name == GameState.ambulance):
-                change_new["is_solution_state"] = True
-                
+              
+            # Set the change data (is solution state)
+            change_new["is_solution_state"] = grid_new[2, 5] == GameState.ambulance
             # Change the new position for the next round
             x_position_new += 1
             # Create a GameState object and append it to the container that holds successor states
@@ -241,6 +242,8 @@ class GameState:
             # Modify the vehicle positions to reflect the vehicle movement
             vehicles_new[vehicle_name]["positions"].pop(-1)
             vehicles_new[vehicle_name]["positions"].insert(0, (copy(y_position_new), copy(x_position)))
+            # Set the change data (is solution state)
+            change_new["is_solution_state"] = grid_new[2, 5] == GameState.ambulance
             # Change the new position for the next round
             y_position_new -= 1
             # Create a GameState object and append it to the container that holds successor states
@@ -265,6 +268,8 @@ class GameState:
             # Modify the vehicle positions to reflect the vehicle movement
             vehicles_new[vehicle_name]["positions"].pop(0)
             vehicles_new[vehicle_name]["positions"].append((copy(y_position_new), copy(x_position)))
+            # Set the change data (is solution state)
+            change_new["is_solution_state"] = grid_new[2, 5] == GameState.ambulance
             # Change the new position for the next round
             y_position_new += 1
             # Create a GameState object and append it to the container that holds successor states
