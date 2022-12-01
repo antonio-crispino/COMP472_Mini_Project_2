@@ -7,6 +7,7 @@ class GameState:
   '''
   # Class variables
   grid_size = 6
+  exit_door_position = (2, 5)
   free_space = '.'
   ambulance = "A"
   axis = { "x": "x", "y": "y" }
@@ -108,7 +109,7 @@ class GameState:
       "direction_moved": None,
       "distance_moved": None,
       "fuel_remaining": None,
-      "is_solution_state": grid_array_2d[2, 5] == GameState.ambulance}
+      "is_solution_state": grid_array_2d[GameState.exit_door_position[0], GameState.exit_door_position[1]] == GameState.ambulance}
 
     ### Initialize the vehicle data
     for vehicle_name, vehicle_data in vehicles_data.items():
@@ -134,7 +135,18 @@ class GameState:
         vehicle_data["axis"] = cls.axis["y"]
       
       ## Add the positions for each vehicle
+      ## Positions are (y, x), not (x, y)
       vehicle_data["positions"] = vehicle_positions
+
+    ## If a vehicle that moves on the x-axis and that is not an ambulance is at the exit door,
+    ## then remove it from the grid_array_2d and empty its position list
+    character_at_exit_door = grid_array_2d[GameState.exit_door_position[0], GameState.exit_door_position[1]]
+    if (character_at_exit_door != GameState.free_space
+      and character_at_exit_door != GameState.ambulance
+      and vehicles_data[character_at_exit_door]["axis"] == cls.axis["x"]):
+      for position in vehicles_data[character_at_exit_door]["positions"]:
+        grid_array_2d[position[0], position[1]] = GameState.free_space
+      vehicles_data[character_at_exit_door]["positions"].clear()
 
     return GameState(grid_array_2d, vehicles_data, change_data)
 
@@ -149,17 +161,16 @@ class GameState:
     for vehicle_name, vehicle_data in self.vehicles.items():
 
       # Proceed only if the vehicle has fuel and it remains in the grid (may have been removed due to valet service extraction)
-      if (vehicle_data["fuel"] > 0 and len(vehicle_data["positions"]) > 0):
-        # Set the change data (vehicle name and remaining fuel amount)
+      if (len(vehicle_data["positions"]) > 0):
+        # Set the change data (vehicle name)
         change_new = self.get_change()
         change_new["vehicle_moved"] = copy(vehicle_name)
-        change_new["fuel_remaining"] = copy(vehicle_data["fuel"]) - 1
 
         # If the vehicle axis is x
         if (vehicle_data["axis"] == GameState.axis["x"]):
 
           # LEFT DIRECTION
-          distance = 0
+          distance = 1
           x_position_new = copy(vehicle_data["positions"][0][1]) - 1
           y_position = copy(vehicle_data["positions"][0][0])
           vehicles_new = self.get_vehicles()
@@ -167,9 +178,8 @@ class GameState:
           # Set the change data (direction moved)
           change_new["direction_moved"] = GameState.direction["l"]
           # While there are free positions to the left of the vehicle, do the following
-          while (x_position_new >= 0 and self.grid[y_position, x_position_new] == GameState.free_space):
+          while (vehicle_data["fuel"] >= distance and x_position_new >= 0 and self.grid[y_position, x_position_new] == GameState.free_space):
             # Set the change data (distance moved)
-            distance += 1
             change_new["distance_moved"] = copy(distance)
             # Modify the grid to reflect the vehicle movement
             grid_new[y_position, x_position_new] = copy(vehicle_name)
@@ -178,14 +188,19 @@ class GameState:
             vehicles_new[vehicle_name]["positions"].pop(-1)
             vehicles_new[vehicle_name]["positions"].insert(0, (copy(y_position), copy(x_position_new)))
             # Set the change data (is solution state)
-            change_new["is_solution_state"] = grid_new[2, 5] == GameState.ambulance
+            change_new["is_solution_state"] = grid_new[GameState.exit_door_position[0], GameState.exit_door_position[1]] == GameState.ambulance
+            # Set the change and vehicle data (fuel remaining)
+            change_new["fuel_remaining"] = vehicle_data["fuel"] - distance
+            vehicles_new[vehicle_name]["fuel"] = vehicle_data["fuel"] - distance
+            # Increase the distance moved valiable for the next round
+            distance += 1
             # Change the new position for the next round
             x_position_new -= 1
             # Create a GameState object and append it to the container that holds successor states
             successor_gamestates.append(GameState(grid_new, vehicles_new, change_new))
 
           # RIGHT DIRECTION
-          distance = 0
+          distance = 1
           x_position_new = copy(vehicle_data["positions"][-1][1]) + 1
           y_position = copy(vehicle_data["positions"][-1][0])
           vehicles_new = self.get_vehicles()
@@ -193,12 +208,11 @@ class GameState:
           # Set the change data (direction moved)
           change_new["direction_moved"] = GameState.direction["r"]
           # While there are free positions to the right of the vehicle, do the following
-          while (x_position_new < 6 and self.grid[y_position, x_position_new] == GameState.free_space):
+          while (vehicle_data["fuel"] >= distance and x_position_new < 6 and self.grid[y_position, x_position_new] == GameState.free_space):
             # Set the change data (distance moved)
-            distance += 1
             change_new["distance_moved"] = copy(distance)
             # If the vehicle reaches the exit door and is not an ambulance "A" (must be moveable on the "x" axis and moving in the "right" direction)
-            if (y_position == 2 and x_position_new == 5 and vehicle_name != GameState.ambulance):
+            if (y_position == GameState.exit_door_position[0] and x_position_new == GameState.exit_door_position[1] and vehicle_name != GameState.ambulance):
               # Modify the grid to reflect the vehicle movement (valet service extraction)
               for position in vehicles_new[vehicle_name]["positions"]:
                 grid_new[position[0], position[1]] = GameState.free_space
@@ -213,7 +227,12 @@ class GameState:
               vehicles_new[vehicle_name]["positions"].append((copy(y_position), copy(x_position_new)))
               
             # Set the change data (is solution state)
-            change_new["is_solution_state"] = grid_new[2, 5] == GameState.ambulance
+            change_new["is_solution_state"] = grid_new[GameState.exit_door_position[0], GameState.exit_door_position[1]] == GameState.ambulance
+            # Set the change and vehicle data (fuel remaining)
+            change_new["fuel_remaining"] = vehicle_data["fuel"] - distance
+            vehicles_new[vehicle_name]["fuel"] = vehicle_data["fuel"] - distance
+            # Increase the distance moved valiable for the next round
+            distance += 1
             # Change the new position for the next round
             x_position_new += 1
             # Create a GameState object and append it to the container that holds successor states
@@ -224,7 +243,7 @@ class GameState:
         else:
           
           # UP DIRECTION
-          distance = 0
+          distance = 1
           x_position = copy(vehicle_data["positions"][0][1])
           y_position_new = copy(vehicle_data["positions"][0][0]) - 1
           vehicles_new = self.get_vehicles()
@@ -232,9 +251,8 @@ class GameState:
           # Set the change data (direction moved)
           change_new["direction_moved"] = GameState.direction["u"]
           # While there are free positions to the left of the vehicle, do the following
-          while (y_position_new >= 0 and self.grid[y_position_new, x_position] == GameState.free_space):
+          while (vehicle_data["fuel"] >= distance and y_position_new >= 0 and self.grid[y_position_new, x_position] == GameState.free_space):
             # Set the change data (distance moved)
-            distance += 1
             change_new["distance_moved"] = copy(distance)
             # Modify the grid to reflect the vehicle movement
             grid_new[y_position_new, x_position] = copy(vehicle_name)
@@ -243,14 +261,19 @@ class GameState:
             vehicles_new[vehicle_name]["positions"].pop(-1)
             vehicles_new[vehicle_name]["positions"].insert(0, (copy(y_position_new), copy(x_position)))
             # Set the change data (is solution state)
-            change_new["is_solution_state"] = grid_new[2, 5] == GameState.ambulance
+            change_new["is_solution_state"] = grid_new[GameState.exit_door_position[0], GameState.exit_door_position[1]] == GameState.ambulance
+            # Set the change and vehicle data (fuel remaining)
+            change_new["fuel_remaining"] = vehicle_data["fuel"] - distance
+            vehicles_new[vehicle_name]["fuel"] = vehicle_data["fuel"] - distance
+            # Increase the distance moved valiable for the next round
+            distance += 1
             # Change the new position for the next round
             y_position_new -= 1
             # Create a GameState object and append it to the container that holds successor states
             successor_gamestates.append(GameState(grid_new, vehicles_new, change_new))
 
           # DOWN DIRECTION
-          distance = 0
+          distance = 1
           x_position = copy(vehicle_data["positions"][-1][1])
           y_position_new = copy(vehicle_data["positions"][-1][0]) + 1
           vehicles_new = self.get_vehicles()
@@ -258,9 +281,8 @@ class GameState:
           # Set the change data (direction moved)
           change_new["direction_moved"] = GameState.direction["d"]
           # While there are free positions to the right of the vehicle, do the following
-          while (y_position_new < 6 and self.grid[y_position_new, x_position] == GameState.free_space):
+          while (vehicle_data["fuel"] >= distance and y_position_new < 6 and self.grid[y_position_new, x_position] == GameState.free_space):
             # Set the change data (distance moved)
-            distance += 1
             change_new["distance_moved"] = copy(distance)
             # Modify the grid to reflect the vehicle movement
             grid_new[y_position_new, x_position] = copy(vehicle_name)
@@ -269,7 +291,12 @@ class GameState:
             vehicles_new[vehicle_name]["positions"].pop(0)
             vehicles_new[vehicle_name]["positions"].append((copy(y_position_new), copy(x_position)))
             # Set the change data (is solution state)
-            change_new["is_solution_state"] = grid_new[2, 5] == GameState.ambulance
+            change_new["is_solution_state"] = grid_new[GameState.exit_door_position[0], GameState.exit_door_position[1]] == GameState.ambulance
+            # Set the change and vehicle data (fuel remaining)
+            change_new["fuel_remaining"] = vehicle_data["fuel"] - distance
+            vehicles_new[vehicle_name]["fuel"] = vehicle_data["fuel"] - distance
+            # Increase the distance moved valiable for the next round
+            distance += 1
             # Change the new position for the next round
             y_position_new += 1
             # Create a GameState object and append it to the container that holds successor states
