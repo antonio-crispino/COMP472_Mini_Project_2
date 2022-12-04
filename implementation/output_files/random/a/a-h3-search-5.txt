@@ -1,0 +1,17 @@
+   5    0    5    ..OPPP..O..X..OAAX..B.QC..B.QC..DDQ.
+   6    1    5    ..OPPP..O..X..OAAX..B.Q...B.QC..DDQC
+   6    1    5    ..OPPP..O..X..OAAX..B.QC..B.QC.DD.Q.
+   6    1    5    ..OPPP..O..X..OAAX..B.QC..B.QCDD..Q.
+   7    2    5    ..OPPP..O..X..OAAX..B.Q...B.QC.DD.QC
+   7    2    5    ..OPPP..O..X..OAAX..B.Q...B.QCDD..QC
+   7    2    5    ..OPPP..O.....OAAX..B.QX..B.QC..DDQC
+   7    2    5    ..OPPP..O..X..OAAX....QC..B.QCDDB.Q.
+   8    3    5    ..OPPP..O.....OAAX..B.QX..B.QC.DD.QC
+   8    3    5    ..OPPP..O..X..OAAX....Q...B.QCDDB.QC
+   8    3    5    ..OPPP..O.....OAAX..B.QX..B.QCDD..QC
+   8    3    5    ...PPP..O..X..OAAX..O.QC..B.QCDDB.Q.
+   9    4    5    ...PPP..O..X..OAAX..O.Q...B.QCDDB.QC
+   9    4    5    ..OPPP..O.....OAAX....QX..B.QCDDB.QC
+   9    4    5    ..PPP...O..X..OAAX..O.QC..B.QCDDB.Q.
+   5    5    0    ..PPPX..O..X..OAA...O.QC..B.QCDDB.Q.
+   6    6    0    ..PPPX..O..X..O.AA..O.QC..B.QCDDB.Q.
