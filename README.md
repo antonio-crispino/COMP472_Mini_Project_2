@@ -11,7 +11,7 @@ Repository Link: https://github.com/antonio-crispino/COMP472_Mini_Project_2
 How to run our program.
 
 1. Clone Repository form the link above.
-2. Open Solution with the IDE of your choice (PyCharm recommended as we have .py files)
+2. Open Solution with the IDE of your choice (PyCharm recommended as we have ```.py``` files)
 3. Configure your Python interpreter to include libraries ```pandas``` (for graphs) and ```abc``` (abstract).
 4. Open the files called ```main.py``` and run the function called ```create_output_files``` to run the algorithms on fifty random puzzles.
    Alternativley, you can run our algorithms indivdiually in the ```tests.py```.
