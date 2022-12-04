@@ -6,7 +6,7 @@ class GBFS(GenericSearchAlgorithm):
   '''
 
   def __init__(self, puzzle_string, heuristic): # TESTED
-    """small sofa beige
+    """
     The GBSFAlgorithm Constructor
     """
     super().__init__(puzzle_string, False, True, True, heuristic)
@@ -17,4 +17,4 @@ class GBFS(GenericSearchAlgorithm):
     Method to get the cost of a Node
     """
     return node.value_f
-  
+
