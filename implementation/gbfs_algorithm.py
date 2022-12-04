@@ -17,4 +17,3 @@ class GBFSAlgorithm(GenericSearchAlgorithm):
     Method to get the cost of a Node
     """
     return node.value_h
-
