@@ -7,6 +7,7 @@ class Heuristic:
 
   @classmethod
   def h1_number_of_blocking_vehicles(cls, game_state): # TESTED
+    # Admissible
     """
     Heuristic function to get the number of blocking vehicles
     """
@@ -14,6 +15,7 @@ class Heuristic:
 
   @classmethod
   def h2_number_of_blocked_positions(cls, game_state): # TESTED
+    # Not admissible
     """
     Heuristic function to get the number of blocked positions
     """
@@ -21,6 +23,7 @@ class Heuristic:
 
   @classmethod
   def h3_number_of_blocking_vehicles_multiplied_by_constant_5(cls, game_state): # TESTED
+    # Not admissible
     """
     Heuristic function to get the number of blocking vehicles multiplied by a constant (5 in this case)
     """
@@ -28,6 +31,7 @@ class Heuristic:
 
   @classmethod
   def h4_number_of_blocking_vehicles_multiplied_by_number_of_blocked_positions(cls, game_state): # TESTED
+    # Not admissible
     """
     Heuristic function to get the number of blocking vehicles multiplied by the number of blocked positions
     """
