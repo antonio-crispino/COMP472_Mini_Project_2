@@ -1,5 +1,7 @@
 import random
 
+### This file was kept but is not necessary for the submission, can be ignored ###
+
 cars = ['B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O']
 random_puzzle_file_location = 'RandomPuzzles.txt'
 report_file_location = 'Report.xlsx'

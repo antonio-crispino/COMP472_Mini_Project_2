@@ -2,7 +2,7 @@ from generic_search_algorithm import GenericSearchAlgorithm
 
 class AStarAlgorithm(GenericSearchAlgorithm):
   '''
-  The AStarAlgorithm class
+  The AStarAlgorithm class (Algorithm A⋆)
   '''
 
   def __init__(self, puzzle_string, heuristic): # TESTED
@@ -22,6 +22,7 @@ class AStarAlgorithm(GenericSearchAlgorithm):
   def add_successors_to_open_list_extra_steps(self, successor_node, same_node_from_closed_list, same_node_from_open_list): # TESTED
     """
     Helper method to apply extra steps to the add_successors_to_open_list method, depending on the algorithm used
+    It is overridden here to make algorithm A become A*
     """
     if ((same_node_from_closed_list is not None) and (self.get_node_cost(successor_node) < self.get_node_cost(same_node_from_closed_list))):
       self.remove_node_from_closed_list(same_node_from_closed_list)

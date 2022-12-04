@@ -15,13 +15,13 @@ class GenericSearchAlgorithm(ABC):
     The SearchAlgorithm Constructor
     """
     initial_gamestate = GameState.generate_initial_gamestate(puzzle_string)
-    self.initial_node = Node.generate_initial_node(initial_gamestate, use_g, use_h, use_f, heuristic)
-    self.initial_board_configuration = puzzle_string
-    self.open_list = [self.initial_node]  # The list that contains all open nodes (nodes to be visited/expanded)
-    self.closed_list = []                 # The list that contains all closed nodes (nodes that were visited/expanded)
-    self.search_path = []                 # The search path of the solution (the list of nodes that have been searched)
-    self.solution_path = []               # The solution path of the algorithm
-    self.performance_time_seconds = 0     # The amount of time it took to run the search_for_solution method (in seconds)
+    self.initial_node = Node.generate_initial_node(initial_gamestate, use_g, use_h, use_f, heuristic) # The initial node
+    self.initial_board_configuration = puzzle_string  # The initial string passed
+    self.open_list = [self.initial_node]              # The list that contains all open nodes (nodes to be visited/expanded)
+    self.closed_list = []                             # The list that contains all closed nodes (nodes that were visited/expanded)
+    self.search_path = []                             # The search path of the solution (the list of nodes that have been searched)
+    self.solution_path = []                           # The solution path of the algorithm
+    self.performance_time_seconds = 0                 # The amount of time it took to run the search_for_solution method (in seconds)
   
   def create_solution_and_search_files(self, subfolder, algorithm_acronym, heuristic_number, puzzle_number): # heuristic_number == None if no heuristic used
     """
@@ -97,7 +97,7 @@ class GenericSearchAlgorithm(ABC):
         puzzle_number,
         algorithm_name,
         heuristic_number_with_h,
-        len(self.solution_path) - 1, # if len(self.solution_path) > 0 else 0
+        len(self.solution_path) - 1, # -1 represents no solution, 0 represents initial puzzle was already in the solution state
         len(self.search_path),
         round(self.performance_time_seconds, 4)
       ])

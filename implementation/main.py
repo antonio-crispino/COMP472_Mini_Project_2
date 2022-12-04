@@ -4,6 +4,7 @@ from ucs_algorithm import UCSAlgorithm
 from gbfs_algorithm import GBFSAlgorithm
 from a_star_algorithm import AStarAlgorithm
 
+# Free function
 def read_input_file(input_file_name):
   """
   Method to read input file of puzzles
@@ -18,14 +19,18 @@ def read_input_file(input_file_name):
         puzzle_strings_list.append(line_clean)
   return puzzle_strings_list
 
+# Free function
 def create_output_files(subfolder, input_file_name, output_csv_name):
   """
   Method to create the output files of the puzzles
   """
+
+  # Algorithm name string for csv file
   ucs_algorithm = "UCS"
   gbfs_algorithm = "GBFS"
   a_star_algorithm = "A/A*"
 
+  # Algorithm name string for other output files and folders
   ucs_string = "ucs"
   gbfs_string = "gbfs"
   a_star_string = "a"
@@ -34,8 +39,6 @@ def create_output_files(subfolder, input_file_name, output_csv_name):
   count = 0
   for puzzle_string in puzzle_strings:
     count += 1
-
-    ## Don't re-run commented out code.
 
     # UCS
     ucs_1 = UCSAlgorithm(puzzle_string)
@@ -61,7 +64,7 @@ def create_output_files(subfolder, input_file_name, output_csv_name):
     gbfs_3.create_solution_and_search_files(subfolder + "\\" + gbfs_string, gbfs_string, "h3", count)
     gbfs_3.add_to_csv_file(subfolder, output_csv_name, gbfs_algorithm, "h3", count)
 
-     # GBFS 4
+    # GBFS 4
     gbfs_4 = GBFSAlgorithm(puzzle_string, Heuristic.h4_number_of_blocking_vehicles_multiplied_by_number_of_blocked_positions)
     gbfs_4.search_for_solution()
     gbfs_4.create_solution_and_search_files(subfolder + "\\" + gbfs_string, gbfs_string, "h4", count)
@@ -91,7 +94,8 @@ def create_output_files(subfolder, input_file_name, output_csv_name):
     a_star_4.create_solution_and_search_files(subfolder + "\\" + a_star_string, a_star_string, "h4", count)
     a_star_4.add_to_csv_file(subfolder, output_csv_name, a_star_algorithm, "h4", count)
 
-### MAIN OUTPUT ###
+### MAIN OUTPUT ### (Commented out code is expected here and left purposely.)
+
 # Create all of the output files from a given input file
 # Must already have created folder structure and output csv file
 # Created sample folder, a folder, gbfs folder, ucs folder, and sample_performance.csv file in this case (before running)

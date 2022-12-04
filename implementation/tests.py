@@ -3,6 +3,10 @@ from node import Node
 from heuristic import Heuristic
 from a_star_algorithm import AStarAlgorithm
 
+### THIS IS A TEST FILE - PLEASE BE ADVISED THAT COMMENTED OUT CODE IS NORMAL IN HERE ###
+
+### This file was kept but is not necessary for the submission, can be ignored ###
+
 # TEST GAMESTATE
 initial_gamestate = GameState.generate_initial_gamestate("BBBJCCH..J..HAAJKK...DDLEEI..L..I.GG") # RRB...C.B...C.AA........EEGGG....... C3 B4 H1 F2
 successor_gamestates = initial_gamestate.generate_successor_gamestates()

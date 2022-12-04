@@ -2,7 +2,7 @@ from generic_search_algorithm import GenericSearchAlgorithm
 
 class GBFSAlgorithm(GenericSearchAlgorithm):
   '''
-  The GBFSAlgorithm class
+  The GBFSAlgorithm class (Greedy Best First Search)
   '''
 
   def __init__(self, puzzle_string, heuristic): # TESTED

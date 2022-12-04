@@ -20,14 +20,7 @@ class GameState:
     self.change = deepcopy(change)      # The change that led to this GameState
     self.vehicles = deepcopy(vehicles)  # The data of the vehicles (fuel and movable axis)
     self.grid = deepcopy(grid)          # The 2D grid representation (6x6) of the puzzle
-    self.grid_string = ''.join(self.grid.reshape(GameState.grid_size ** 2))
-    
-    # TESTING
-    # print()
-    # print(self.grid)
-    # print(self.change)
-    # [print(key,':',value) for key, value in self.vehicles.items()]
-    # print()
+    self.grid_string = ''.join(self.grid.reshape(GameState.grid_size ** 2)) # The grid as a string of 36 characters
   
   def get_change(self):
     """
