@@ -2,7 +2,7 @@ Repository Link: https://github.com/antonio-crispino/COMP472_Mini_Project_2
 
 ------------------------------------
 
-# COMP472_Mini_Project_2
+# COMP472 Mini Project 2
 
 ##### Antonio Crispino - 40109690
 
