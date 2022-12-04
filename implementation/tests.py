@@ -32,12 +32,16 @@ input_string_5 = "IJBBCCIJDDL.IJAAL.EEK.L...KFF..GGHH. F0 G6"
 input_string_6 = "BB.G.HE..G.HEAAG.I..FCCIDDF..I..F..."
 
 algo = AStarAlgorithm(input_string_2, Heuristic.h1_number_of_blocking_vehicles)
-print(algo.open_list[0].game_state.get_grid())
-result = algo.search_for_solution()
-if not bool(result):
-  print("No solution")
-[print(node.game_state.get_data_string()) for node in result]
-print(algo.get_closed_list_size())
-print(algo.get_open_list_size())
-print(algo.get_closed_list_size() + algo.get_open_list_size())
-print(algo.number_of_steps)
+#print(algo.open_list[0].game_state.get_grid())
+algo.search_for_solution()
+#print()
+#if not bool(algo.solution_path):
+#  print("No solution")
+#[print(node.game_state.get_data_string()) for node in algo.solution_path]
+#print(algo.get_closed_list_size())
+#print(algo.get_open_list_size())
+#print(algo.get_closed_list_size() + algo.get_open_list_size())
+# print(algo.number_of_steps)
+
+#[print(node) for node in algo.search_path]
+algo.create_solution_and_search_files("samples", "a", "h1", 999)

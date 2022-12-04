@@ -65,6 +65,18 @@ class GameState:
       fuel_amounts_string += vehicle_name + ":" + str(vehicle_data["fuel"]) + ", "
     return fuel_amounts_string[:-2]
   
+  def get_change_string_no_format(self):
+    """
+    Method that returns the GameState change as a string
+    """
+    if (self.change["vehicle_moved"] == None):
+      return '%s' % ("Initial")
+    else:
+      return '%s %s %s' % (
+        self.change["vehicle_moved"],
+        self.change["direction_moved"],
+        self.change["distance_moved"])
+
   def get_change_string(self):
     """
     Method that returns the GameState change as a string
