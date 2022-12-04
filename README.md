@@ -1,4 +1,4 @@
-# COMP472_Mini_Project_2
+# COMP472 Mini-Project 2
 
 ## URL of the GitHub Repository
 
