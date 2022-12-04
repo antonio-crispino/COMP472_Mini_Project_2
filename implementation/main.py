@@ -91,10 +91,16 @@ def create_output_files(subfolder, input_file_name, output_csv_name):
     a_star_4.create_solution_and_search_files(subfolder + "\\" + a_star_string, a_star_string, "h4", count)
     a_star_4.add_to_csv_file(subfolder, output_csv_name, a_star_algorithm, "h4", count)
 
-    break
-  
 ### MAIN OUTPUT ###
 # Create all of the output files from a given input file
 # Must already have created folder structure and output csv file
 # Created sample folder, a folder, gbfs folder, ucs folder, and sample_performance.csv file in this case (before running)
-create_output_files("sample", "sample-input.txt", "performance.csv")
+
+# sample
+# create_output_files("sample", "sample-input.txt", "performance.csv")
+
+# random
+# create_output_files("random", "random-puzzles-input.txt", "performance.csv")
+
+# demo
+# create_output_files("demo", "", "performance.csv")
