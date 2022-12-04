@@ -1,15 +1,15 @@
 from generic_search_algorithm import GenericSearchAlgorithm
 
-class GBFS(GenericSearchAlgorithm):
+class GBFSAlgorithm(GenericSearchAlgorithm):
   '''
   The GBFSAlgorithm class
   '''
 
   def __init__(self, puzzle_string, heuristic): # TESTED
     """
-    The GBSFAlgorithm Constructor
+    The GBFSAlgorithm Constructor
     """
-    super().__init__(puzzle_string, False, True, True, heuristic)
+    super().__init__(puzzle_string, False, True, False, heuristic)
 
   # Implemented abstract method from parent class
   def get_node_cost(self, node): # TESTED
