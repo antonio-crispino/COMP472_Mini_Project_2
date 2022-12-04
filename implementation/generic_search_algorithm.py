@@ -34,14 +34,17 @@ class GenericSearchAlgorithm(ABC):
     """
     Method to write the algorithm solution output to a file
     """
-    output_file_name = algorithm_acronym + "-" + heuristic_number + "-sol-" + str(puzzle_number) + ".txt"
+    if (heuristic_number is None):
+      output_file_name = algorithm_acronym + "-sol-" + str(puzzle_number) + ".txt"
+    else:
+      output_file_name = algorithm_acronym + "-" + heuristic_number + "-sol-" + str(puzzle_number) + ".txt"
     output_file_path =  os.path.join(os.getcwd(), "implementation", "output_files", subfolder, output_file_name)
     with open(output_file_path, "w") as f:
       f.write("Initial board configuration: " + self.initial_board_configuration + "\n\n")
       f.write(self.initial_node.game_state.get_grid_string_2d() + "\n\n")
       f.write(self.initial_node.game_state.get_fuel_amounts_string() + "\n\n")
       if (len(self.solution_path) > 1):
-        f.write("Runtime: " + str(round(self.performance_time_seconds, 2)) + " seconds\n")
+        f.write("Runtime: " + str(round(self.performance_time_seconds, 4)) + " seconds\n")
         f.write("Search path length: " + str(self.get_closed_list_size() + self.get_open_list_size()) + " states\n")
         solution_path_without_initial_node = self.solution_path[1:]
         f.write("Solution path length: " + str(len(solution_path_without_initial_node)) + " moves\n")
@@ -62,7 +65,10 @@ class GenericSearchAlgorithm(ABC):
     """
     Method to write the algorithm search output to a file
     """
-    output_file_name = algorithm_acronym + "-" + heuristic_number + "-search-" + str(puzzle_number) + ".txt"
+    if (heuristic_number is None):
+      output_file_name = algorithm_acronym + "-search-" + str(puzzle_number) + ".txt"
+    else:
+      output_file_name = algorithm_acronym + "-" + heuristic_number + "-search-" + str(puzzle_number) + ".txt"
     output_file_path =  os.path.join(os.getcwd(), "implementation", "output_files", subfolder, output_file_name)
     with open(output_file_path, "w") as f:
       [f.write(self.get_search_file_string(node) + "\n") for node in self.search_path]
@@ -93,7 +99,7 @@ class GenericSearchAlgorithm(ABC):
         heuristic_number_with_h,
         len(self.solution_path) - 1 if len(self.solution_path) > 0 else 0,
         len(self.search_path),
-        round(self.performance_time_seconds, 2)
+        round(self.performance_time_seconds, 4)
       ])
 
   def get_closed_list_size(self): # TESTED
