@@ -1,5 +1,7 @@
 Repository Link: https://github.com/antonio-crispino/COMP472_Mini_Project_2
 
+------------------------------------
+
 # COMP472_Mini_Project_2
 
 ##### Antonio Crispino - 40109690
@@ -7,6 +9,9 @@ Repository Link: https://github.com/antonio-crispino/COMP472_Mini_Project_2
 ##### Maira Malhi - 40128269
 
 ##### Nabila Mehreen - 40130897
+
+
+------------------------------------
 
 How to run our program.
 
