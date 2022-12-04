@@ -69,7 +69,7 @@ class GenericSearchAlgorithm(ABC):
       output_file_name = algorithm_acronym + "-search-" + str(puzzle_number) + ".txt"
     else:
       output_file_name = algorithm_acronym + "-" + heuristic_number + "-search-" + str(puzzle_number) + ".txt"
-    output_file_path =  os.path.join(os.getcwd(), "implementation", "output_files", subfolder, output_file_name)
+    output_file_path = os.path.join(os.getcwd(), "implementation", "output_files", subfolder, output_file_name)
     with open(output_file_path, "w") as f:
       [f.write(self.get_search_file_string(node) + "\n") for node in self.search_path]
 
@@ -97,7 +97,7 @@ class GenericSearchAlgorithm(ABC):
         puzzle_number,
         algorithm_name,
         heuristic_number_with_h,
-        len(self.solution_path) - 1 if len(self.solution_path) > 0 else 0,
+        len(self.solution_path) - 1, # if len(self.solution_path) > 0 else 0
         len(self.search_path),
         round(self.performance_time_seconds, 4)
       ])
